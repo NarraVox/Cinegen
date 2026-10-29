@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS CINE-GEN | AI Cinema Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/nexus_cine_gen.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- ÁREA DE ROTEIRO -->
+        <section class="editor-zone">
+            <header>
+                <div class="brand">
+                    <a href="nexus_premium.html" style="color: var(--accent); text-decoration: none; font-size: 0.75rem; letter-spacing: 1px; font-weight: 800; margin-bottom: 10px; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 6px; display: inline-block; transition: 0.3s;" onmouseover="this.style.background='var(--accent)'; this.style.color='#000';" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)';">← VOLTAR AO HUB</a>
+                    <h1>NEXUS CINE-GEN</h1>
+                    <p style="color: var(--text-dim); font-size: 0.75rem; letter-spacing: 1px;">AI CINEMA AUTOMATION ENGINE (QWEN 3.5 + FLUX.2 + WAN 2.2)</p>
+                </div>
+                <div class="vram-badge">VRAM: 6.0GB RTX_MODE</div>
+            </header>
+            
+            <!-- SELETOR DE PROJETOS & RETOMADA (STATUS_JOB) -->
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); padding: 12px 15px; border-radius: 10px; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                <div style="flex: 1;">
+                    <label style="font-size: 0.75rem; color: var(--accent); font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 4px;">📁 PROJETOS SALVOS (CHECKPOINT)</label>
+                    <select id="saved-projects-select" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 100%; padding: 6px 10px; border-radius: 6px; font-family: 'Outfit'; font-size: 0.8rem;">
+                        <option value="">Nenhum projeto selecionado</option>
+                    </select>
+                </div>
+                <button id="resume-btn" onclick="resumeSelectedProject()" style="background: linear-gradient(135deg, var(--accent), #7c4dff); border: none; color: #000; padding: 8px 16px; border-radius: 8px; font-weight: 800; font-size: 0.75rem; cursor: pointer; transition: 0.3s; margin-top: 18px;">🔄 RETOMAR</button>
+            </div>
+
+            <div class="script-container" style="margin-top: 15px;">
+                <label>Roteiro da Série / Cena</label>
+                <textarea id="script-input" class="script-area" placeholder="Digite o roteiro aqui... Ex: Paulo e Carol conversando na praia no pôr do sol com ondas turquesas."></textarea>
+            </div>
+
+            <!-- SEÇÃO DE ELENCO (CASTING) -->
+            <div style="margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <label>Elenco da Série (Referências NarraVox)</label>
+                    <button onclick="addActor()" style="background: var(--glass); border: 1px solid var(--accent); color: var(--accent); padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 800; transition: 0.3s;">+ ADICIONAR ATOR</button>
+                </div>
+                <div id="character-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-height: 220px; overflow-y: auto; padding-right: 5px;">
+                    <!-- Personagens serão inseridos aqui dinamicamente -->
+                </div>
+            </div>
+
+            <div class="controls" style="margin-top: 15px;">
+                <div id="global-status" style="font-size: 0.85rem; color: var(--text-dim); display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent);"></div>
+                    Pronto para gravar
+                </div>
+                <div class="btn-group">
+                    <button id="start-btn" class="btn-start" onclick="startGeneration()">Gravar Cenas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MONITOR DE PRODUÇÃO -->
+        <section class="monitor-zone">
+            <div class="status-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Produção em Tempo Real</span>
+                    <span id="progress-text" style="font-size: 0.85rem; color: var(--accent); font-weight: 800;">0%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.03); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);">
+                    <div id="progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent), #7c4dff); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 15px var(--accent-glow);"></div>
+                </div>
+            </div>
+
+            <div class="scene-list" id="scene-list">
+                <div style="text-align: center; color: var(--text-dim); margin-top: 60px; font-size: 0.9rem; opacity: 0.5;">
+                    <p>Nenhuma cena na fila de renderização.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/nexus_cine_gen.js"></script>
+    <script src="js/donation_widget.js"></script>
+</body>
+</html>

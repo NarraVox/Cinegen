@@ -1,0 +1,69 @@
+# =========================================================================
+# CineGen - Git Ignore Configuration
+# =========================================================================
+
+# Pastas de Modelos Neurais e Pesos Binários (Arquivos Pesados)
+models/
+*.safetensors
+*.gguf
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Pastas do Servidor ComfyUI e Saídas
+comfyui/
+output/
+temp/
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Pastas de Ambientes Virtuais Python
+venv_video/
+venv/
+.venv/
+env/
+ENV/
+build/
+dist/
+
+# Pastas e Arquivos de Mídia Pessoal / Testes de Elenco
+atores narravox/
+atores_narravox/
+reference_actors/
+
+# Arquivos de Cache e Compilação Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs e Temporários de IDEs / Sistemas Operacionais
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.nexus_backup/
+
+# Referencias e pastas legadas
+reference/
+mcp_server/
+
+# Scripts de testes com atores especificos
+scripts/run_generate_*
+scripts/run_test_*
+scripts/run_inpaint_*
+scripts/live_status.json
+scripts/extract_preview.py
