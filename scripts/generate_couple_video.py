@@ -26,7 +26,7 @@ from PIL import Image
 import torch
 
 MODEL_DIR = Path(r"C:\CineGen\models\videos\Kandinsky-6-Lite-OrbitQuant-W4A4")
-SOURCE_SNAPSHOT = Path(r"C:\Users\Paulo Henrik\.cache\huggingface\hub\models--kandinskylab--Kandinsky-6.0-Lite-distill-5s-Diffusers\snapshots\efbaeb9961770cc82fece5b9cb2197049d8c983c")
+SOURCE_SNAPSHOT = Path.home() / ".cache" / "huggingface" / "hub" / "models--kandinskylab--Kandinsky-6.0-Lite-distill-5s-Diffusers" / "snapshots" / "efbaeb9961770cc82fece5b9cb2197049d8c983c"
 
 INPUT_IMAGE = Path(r"C:\CineGen\comfyui\output\CineGen_Casal_Oficial_Tags_HD_00001_.png")
 OUTPUT_VIDEO = Path(r"C:\CineGen\output\CineGen_Casal_Parque_480p_4s.mp4")

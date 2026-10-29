@@ -4,7 +4,7 @@ from pathlib import Path
 import torch
 
 MODEL_DIR = Path(r"C:\CineGen\models\videos\Kandinsky-6-Lite-OrbitQuant-W4A4")
-SOURCE_SNAPSHOT = Path(r"C:\Users\Paulo Henrik\.cache\huggingface\hub\models--kandinskylab--Kandinsky-6.0-Lite-distill-5s-Diffusers\snapshots\efbaeb9961770cc82fece5b9cb2197049d8c983c")
+SOURCE_SNAPSHOT = Path.home() / ".cache" / "huggingface" / "hub" / "models--kandinskylab--Kandinsky-6.0-Lite-distill-5s-Diffusers" / "snapshots" / "efbaeb9961770cc82fece5b9cb2197049d8c983c"
 
 def test():
     print("Testing pipeline loader...")
