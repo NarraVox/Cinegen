@@ -76,8 +76,11 @@ class CineGenPlanner:
             return
         
         print(f"🧠 [PLANNER] Carregando Qwen 3.5 com KV Cache em 4-bits ({os.path.basename(self.model_path)})...", flush=True)
-        import llama_cpp
-        from llama_cpp import Llama
+        try:
+            import llama_cpp
+            from llama_cpp import Llama
+        except ImportError:
+            raise RuntimeError("Para usar o planejador local com modelo GGUF, instale o pacote: pip install llama-cpp-python")
         t0 = time.time()
         self.llm = Llama(
             model_path=self.model_path,
