@@ -18,19 +18,19 @@ jobs:
       - name: 📥 Checkout do Código-Fonte
         uses: actions/checkout@v4
 
-      - name: 🐍 Configurar Ambiente Python
+      - name: 🐍 Configurar Ambiente Python Limpo
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: 📦 Instalar Dependências de Build do Instalador
+      - name: 📦 Instalar PyInstaller na Nuvem
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller pywebview pythonnet clr-loader requests
+          pip install pyinstaller
 
-      - name: 🔨 Gerar Executável do Instalador (Setup_CineGen.exe)
+      - name: 🔨 Compilar Executável Oficial (Setup_CineGen.exe)
         run: |
-          python build_setup.py
+          pyinstaller --onefile --noconsole --name Setup_CineGen --clean cinegen_installer.py
 
       - name: 🗜️ Empacotar Código do CineGen (ZIP)
         shell: pwsh
