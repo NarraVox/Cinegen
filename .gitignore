@@ -97,6 +97,10 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+dist/
+build/
+build_installer_temp/
+*.spec
 
 # Instruções e Históricos Locais de Desenvolvimento
 AGENTS.md

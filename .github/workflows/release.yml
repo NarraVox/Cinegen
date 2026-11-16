@@ -10,8 +10,8 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: 🎬 Publicar Release Oficial do CineGen
+  build-and-release:
+    name: 🎬 Compilar Executável & Publicar Release
     runs-on: windows-latest
 
     steps:
@@ -23,19 +23,23 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 📦 Validar Dependências do requirements.txt
+      - name: 📦 Instalar Dependências de Build do Instalador
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt --dry-run
+          pip install pyinstaller pywebview pythonnet clr-loader requests
 
-      - name: 🗜️ Empacotar Código do CineGen
+      - name: 🔨 Gerar Executável do Instalador (Setup_CineGen.exe)
+        run: |
+          python build_setup.py
+
+      - name: 🗜️ Empacotar Código do CineGen (ZIP)
         shell: pwsh
         run: |
           $releaseZip = "CineGen_Studio_${{ github.ref_name }}.zip"
           Compress-Archive -Path "cinegen", "docs", "README.md", "RELEASE_NOTES.md", "requirements.txt", "setup_cinegen.bat", "cinegen_installer.py", "LICENSE", "NOTICE", "COPYRIGHT.md" -DestinationPath $releaseZip
           Write-Host "Pacote $releaseZip gerado com sucesso!"
 
-      - name: 🚀 Criar GitHub Release e Publicar Arquivos
+      - name: 🚀 Criar GitHub Release e Publicar Executáveis
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
@@ -44,6 +48,7 @@ jobs:
           prerelease: false
           body_path: RELEASE_NOTES.md
           files: |
+            dist/Setup_CineGen.exe
             CineGen_Studio_${{ github.ref_name }}.zip
             setup_cinegen.bat
             cinegen_installer.py
