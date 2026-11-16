@@ -1,0 +1,29 @@
+# =========================================================================
+# CineGen - Python Dependencies
+# =========================================================================
+
+# Core Multimodal & Deep Learning
+torch>=2.4.0
+torchvision
+torchaudio
+diffusers>=0.30.0
+transformers>=4.45.0
+accelerate>=0.34.0
+safetensors>=0.4.5
+einops>=0.8.0
+
+# API & Web Studio Server
+fastapi>=0.110.0
+uvicorn>=0.28.0
+pydantic>=2.6.0
+requests>=2.31.0
+
+# Image & Video Processing
+Pillow>=10.2.0
+opencv-python-headless>=4.9.0
+imageio>=2.34.0
+imageio-ffmpeg>=0.4.9
+
+# System, Hardware & Telemetry
+psutil>=5.9.8
+tqdm>=4.66.2

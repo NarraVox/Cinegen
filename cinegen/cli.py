@@ -14,18 +14,30 @@
 
 import argparse
 import sys
+import json
 from pathlib import Path
 from .engine import CineGenEngine
 
 def main():
     parser = argparse.ArgumentParser(
         prog="cinegen",
-        description="CineGen CLI: Sistema de Geração de Imagens Cinematográficas com Fidelidade Real"
+        description="CineGen CLI: Sistema de Produção Audiovisual Cinematográfica com IA"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Comando status
     subparsers.add_parser("status", help="Verifica a conexão com o servidor local ComfyUI")
+
+    # Comando serve (inicia estúdio web)
+    serve_parser = subparsers.add_parser("serve", help="Inicia o servidor web CineGen Studio (FastAPI + UI)")
+    serve_parser.add_argument("--host", default="127.0.0.1", help="Host IP (padrão: 127.0.0.1)")
+    serve_parser.add_argument("--port", type=int, default=8000, help="Porta HTTP (padrão: 8000)")
+
+    # Comando plan (apenas planejamento com Qwen 3.5)
+    plan_parser = subparsers.add_parser("plan", help="Executa o planejamento em 3 etapas com Qwen 3.5 a partir de um roteiro")
+    plan_parser.add_argument("--script", required=True, help="Arquivo de texto ou string com o roteiro")
+    plan_parser.add_argument("--actors", default=None, help="Arquivo JSON com elenco de personagens")
+    plan_parser.add_argument("--output", default=None, help="Diretório para salvar o plano JSON")
 
     # Comando solo
     solo_parser = subparsers.add_parser("solo", help="Gera uma imagem de um único personagem com fidelidade estrita")
@@ -49,6 +61,29 @@ def main():
     couple_parser.add_argument("--prefix", default="CineGen_CLI_Casal", help="Prefixo do arquivo salvo")
 
     args = parser.parse_args()
+
+    if args.command == "serve":
+        from .server import run_server
+        run_server(host=args.host, port=args.port)
+        return
+
+    if args.command == "plan":
+        from .planner import CineGenPlanner
+        script_content = args.script
+        if Path(args.script).exists():
+            script_content = Path(args.script).read_text(encoding="utf-8")
+
+        actors = []
+        if args.actors and Path(args.actors).exists():
+            actors = json.loads(Path(args.actors).read_text(encoding="utf-8"))
+        elif not actors:
+            actors = [{"name": "Protagonista", "gender": "Masculino"}, {"name": "Especialista", "gender": "Feminino"}]
+
+        planner = CineGenPlanner()
+        plan = planner.plan_full_project(script_content, actors, project_dir=args.output or "projects/cli_run")
+        print(f"[CineGen] Planejamento concluído com {len(plan['shots'])} planos!")
+        return
+
     engine = CineGenEngine()
 
     if args.command == "status":

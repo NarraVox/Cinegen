@@ -167,6 +167,7 @@ def upscale_video_to_1080p(
     out_size = os.path.getsize(output_path) / (1024 * 1024)
     print(f"🎉 Vídeo 1080p SPAN finalizado com sucesso!", flush=True)
     print(f"💾 Arquivo final: {output_path} ({out_size:.2f} MB)", flush=True)
+    return output_path
 
 if __name__ == "__main__":
     input_file = r"C:\CineGen\comfyui\output\CineGen_Amiga_Solo_Loiro_3s_00001_.mp4"

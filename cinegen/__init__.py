@@ -13,13 +13,15 @@
 # limitations under the License.
 
 """
-CineGen - Sistema Autônomo de Geração de Imagens e Vídeo Cinematográfico
+CineGen - Sistema Autônomo de Produção Audiovisual Cinematográfica com IA
 """
 
 from .engine import CineGenEngine, GenerationResult
 from .preprocessor import preprocess_reference
 from .prompt_builder import build_solo_prompt, build_couple_prompt
 from .workflow_builder import build_flux_workflow
+from .planner import CineGenPlanner
+from .orchestrator import ProductionOrchestrator
 
 __all__ = [
     "CineGenEngine",
@@ -28,4 +30,6 @@ __all__ = [
     "build_solo_prompt",
     "build_couple_prompt",
     "build_flux_workflow",
+    "CineGenPlanner",
+    "ProductionOrchestrator",
 ]

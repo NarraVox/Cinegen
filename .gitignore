@@ -1,5 +1,5 @@
 # =========================================================================
-# CineGen - Git Ignore Configuration
+# CineGen - Git Ignore Configuration (Strict Privacy & Production Guard)
 # =========================================================================
 
 # Pastas de Modelos Neurais e Pesos Binários (Arquivos Pesados)
@@ -25,6 +25,9 @@ temp/
 *.jpg
 *.jpeg
 *.webp
+*.wav
+*.mp3
+*.flac
 
 # Pastas de Ambientes Virtuais Python
 venv_video/
@@ -35,10 +38,57 @@ ENV/
 build/
 dist/
 
-# Pastas e Arquivos de Mídia Pessoal / Testes de Elenco
+# Pastas e Arquivos de Mídia Pessoal / Testes de Elenco / Privados
 atores narravox/
 atores_narravox/
 reference_actors/
+reference/
+projects/
+queue/
+uploads/
+scratch/
+_SEMENTES_PTBR/
+mcp_server/
+mcp/
+
+# Roteiros e Documentos de Teste Locais
+roteiro_*.txt
+*.txt
+!requirements.txt
+*.html
+*.bat
+!setup_cinegen.bat
+generate_flyer.py
+cida_*
+panfleto_*
+
+# Scripts de Produção e Testes Específicos de Episódios
+scripts/animate_*
+scripts/composite_*
+scripts/generate_*
+scripts/dublar_*
+scripts/concat_*
+scripts/regen_*
+scripts/reanimate_*
+scripts/regenerate_*
+scripts/recalibrate_*
+scripts/reapply_*
+scripts/retouch_*
+scripts/run_*
+scripts/test_*
+scripts/inspect_*
+scripts/beauty_*
+scripts/apply_*
+scripts/create_*
+scripts/fine_*
+scripts/fix_*
+scripts/sanitize_*
+scripts/segment_*
+scripts/setup_*
+scripts/update_*
+scripts/scratch/
+scripts/live_status.json
+scripts/extract_preview.py
 
 # Arquivos de Cache e Compilação Python
 __pycache__/
@@ -48,6 +98,12 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Instruções e Históricos Locais de Desenvolvimento
+AGENTS.md
+CINEGEN_AGENTS.md
+GEMINI.md
+docs/ATUALIZACOES.md
+
 # Logs e Temporários de IDEs / Sistemas Operacionais
 *.log
 .DS_Store
@@ -56,14 +112,3 @@ desktop.ini
 .vscode/
 .idea/
 .nexus_backup/
-
-# Referencias e pastas legadas
-reference/
-mcp_server/
-
-# Scripts de testes com atores especificos
-scripts/run_generate_*
-scripts/run_test_*
-scripts/run_inpaint_*
-scripts/live_status.json
-scripts/extract_preview.py

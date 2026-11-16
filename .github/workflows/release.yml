@@ -1,0 +1,52 @@
+name: ⚡ CineGen Release Protocol
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: 🎬 Publicar Release Oficial do CineGen
+    runs-on: windows-latest
+
+    steps:
+      - name: 📥 Checkout do Código-Fonte
+        uses: actions/checkout@v4
+
+      - name: 🐍 Configurar Ambiente Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Validar Dependências do requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --dry-run
+
+      - name: 🗜️ Empacotar Código do CineGen
+        shell: pwsh
+        run: |
+          $releaseZip = "CineGen_Studio_${{ github.ref_name }}.zip"
+          Compress-Archive -Path "cinegen", "docs", "README.md", "RELEASE_NOTES.md", "requirements.txt", "setup_cinegen.bat", "cinegen_installer.py", "LICENSE", "NOTICE", "COPYRIGHT.md" -DestinationPath $releaseZip
+          Write-Host "Pacote $releaseZip gerado com sucesso!"
+
+      - name: 🚀 Criar GitHub Release e Publicar Arquivos
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          name: ⚡ CineGen ${{ github.ref_name }} - "Autonomous AI Cinema Studio"
+          draft: false
+          prerelease: false
+          body_path: RELEASE_NOTES.md
+          files: |
+            CineGen_Studio_${{ github.ref_name }}.zip
+            setup_cinegen.bat
+            cinegen_installer.py
+            requirements.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
